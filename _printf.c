@@ -1,50 +1,61 @@
 #include "main.h"
-
-void print_buffer(char buffer[], int *buff_ind);
+#include <stdarg.h>
+#include <unistd.h>
+#include <string.h>
+/**
+  * _putchar - writes a character to stdout
+  * @c: the character to write
+  *
+  * Return: On success 1, on error -1
+  */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
 
 /**
-  * _printf - Printf function
-  * @format: format.
-  * Return: Printed chars.
+  * _printf - prints formatted output to stdout
+  * @format: the format string
+  * @...: the optional arguments
+  *
+  * Return: the number of characters printed
   */
 int _printf(const char *format, ...)
 {
-	int j, printed = 0, printed_chars = 0;
-	int flags, width, precision, size, buff_ind = 0;
-	va_list list;
-	char buff[BUFF_SIZE];
+	va_list args;
+	int i, count = 0;
 
-	if (format == NULL)
-		return (-1);
-	va_start(list, format);
-	for (j = 0; format && format[j] != '\0'; j++)
+	va_start(args, format);
+
+	for (i = 0; format && format[i]; i++)
 	{
-		if (format[j] != '%')
+		if (format[i] == '%')
 		{
-			buff[buff_ind++] = format[j];
-			if (buff_ind == BUFF_SIZE)
-				print_buffer(buff, &buff_ind);
-			/* write(1, &format[j], 1);*/
-			printed_chars++;
+			i++;
+			switch (format[i])
+			{
+				case 'c':
+					count += _putchar(va_arg(args, int));
+					break;
+				case 's':
+					count += write(1, va_arg(args, char *),
+						strlen(va_arg(args, char *)));
+					break;
+				case '%':
+					count += _putchar('%');
+					break;
+				default:
+					count += _putchar('%');
+					count += _putchar(format[i]);
+					break;
+			}
 		}
 		else
 		{
-			print_buffer(buff, &buff_ind);
-			flags = get_flags(format, &j);
-			width = get_width(format, &j, list);
-			precision = get_precision(format, &j, list);
-			size = get_size(format, &j);
-			++j;
-			printed = handle_print(format, &j, list, buff,
-					flags, width, precision, size);
-			if (printed == -1)
-				return (-1);
-			printed_chars += printed;
+			count += _putchar(format[i]);
 		}
 	}
-
-	print_buffer(buff, &buff_ind);
-	va_end(list);
-	return (printed_chars);
+	va_end(args);
+	return (count);
 }
 
