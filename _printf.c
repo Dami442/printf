@@ -3,7 +3,7 @@
 /**
  * _printf - formatted output conversion and print data.
  * @format: input string.
- * This is a team project by Dami442 and harvey
+ * This is a team project by Dami442 and Harvey
  *
  * Return: number of chars printed.
  */
