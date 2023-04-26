@@ -1,52 +1,48 @@
 #include "main.h"
+#include <stdarg.h>
 
 /**
- * _printf - formatted output conversion and print data.
- * @format: input string.
- * This is a team project by Dami442 and Harvey
+ * _printf - Produces output according to a format
+ * @format: Is a character string.
  *
- * Return: number of chars printed.
+ * Return: The number of chars printed (excluding
+ * he null byte used to end output to strings)
  */
+
 int _printf(const char *format, ...)
 {
-	unsigned int a = 0, lengt = 0, ibuff = 0;
-	va_list arguments;
-	int (*function)(va_list, char *, unsigned int);
-	char *buffer;
+	int size;
+	va_list args;
 
-	va_start(arguments, format), buffer = malloc(sizeof(char) * 1024);
-	if (!format || !buffer || (format[a] == '%' && !format[a + 1]))
+	if (format == NULL)
 		return (-1);
-	if (!format[a])
+
+	size = _strlen(format);
+	if (size <= 0)
 		return (0);
-	for (a = 0; format && format[a]; a++)
-	{
-		if (format[a] == '%')
-		{
-			if (format[a + 1] == '\0')
-			{	print_buf(buffer, ibuff), free(buffer), va_end(arguments);
-				return (-1);
-			}
-			else
-			{	function = get_print_func(format, a + 1);
-				if (function == NULL)
-				{
-					if (format[a + 1] == ' ' && !format[a + 2])
-						return (-1);
-					handl_buf(buffer, format[a], ibuff), lengt++, a--;
-				}
-				else
-				{
-					lengt += function(arguments, buffer, ibuff);
-					a += ev_print_func(format, a + 1);
-				}
-			} a++;
-		}
-		else
-			handl_buf(buffer, format[a], ibuff), lengt++;
-		for (ibuff = lengt; ibuff > 1024; ibuff -= 1024)
-			;
-	}
-	print_buf(buffer, ibuff), free(buffer), va_end(arguments);
-	return (lengt);
+
+	va_start(args, format);
+
+	size = handler(format, args);
+	_putchar(-1);
+
+	va_end(args);
+	return (size);
+}
+
+/**
+ * _strlen - Calculates the length of a string
+ * @str: String par.
+ *
+ * Return: Length
+ **/
+
+int _strlen(const char *str)
+{
+	int b;
+
+	for (b = 0; str[b] != 0; b++)
+		;
+
+	return (b);
 }
