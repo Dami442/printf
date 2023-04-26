@@ -1,4 +1,4 @@
-This repo is for the printf team-project
+This repo is for the printf team-project by Damilare Olowe and Njemanze Harvey
 contributor : [Njemanze Harvey](https://github.com/Skai143)
 
 Group Project:                                                                      
