@@ -8,10 +8,10 @@
  */
 int print_binary(va_list list)
 {
-	char *ptrbuffer;
+	char *ptrbuff;
 	int leng;
 
-	ptrbuffer = itoa(va_arg(list, unsigned int), 2);
+	ptrbuff = itoa(va_arg(list, unsigned int), 2);
 
 	leng = _print(ptrbuff);
 
