@@ -1,5 +1,6 @@
 This repo is for the printf team-project by Damilare Olowe and Njemanze Harvey
-contributor : [Njemanze Harvey](https://github.com/Skai143)
+
+Contributors : [Njemanze Harvey](https://github.com/Skai143), [Damilare olowe](https://github.com/Dami442)
 
 Group Project:                                                                      
                                                                                     
